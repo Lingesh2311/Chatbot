@@ -5,6 +5,7 @@ responses = {
         "You tell me!",
         "I don't know"
     ]
+    ,
     "statement":[
         ":)",
         "How's that possible?",
@@ -26,7 +27,7 @@ if __name__ == "__main__":
     # Send messages ending in a question mark
     send_message("what's today's weather?")
     send_message("what's today's weather?")
-    
+
     # Send messages which don't end with a question mark
     send_message("I love building chatbots")
     send_message("I love building chatbots")
