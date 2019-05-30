@@ -1,6 +1,6 @@
 import random
 import re
-
+import chatbot2
 
 rules = {'I want (.*)': ['What would it mean if you got {0}',
         'Why do you want {0}',
@@ -32,4 +32,6 @@ def match_rule(rules, message):
 
 
 if __name__ == "__main__":
-    print(match_rule(rules, "do you remember your last birthday")) 
+    response = match_rule(rules, "do you remember your last birthday")
+    chatbot2.send_message(response)
+
