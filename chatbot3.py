@@ -1,6 +1,5 @@
 import random
 import re
-import chatbot2
 
 rules = {'I want (.*)': ['What would it mean if you got {0}',
         'Why do you want {0}',
@@ -28,10 +27,57 @@ def match_rule(rules, message):
             if '{0}' in response:
                 phrase = match.group(1)
     # Return the response and phrase
-    return response.format(phrase)
+    return response, phrase
 
+# Define replace_pronouns()
+def replace_pronouns(message):
+
+    message = message.lower()
+    if 'me' in message:
+        # Replace 'me' with 'you'
+        return re.sub('me','you',message)
+    if 'my' in message:
+        # Replace 'my' with 'your'
+        return re.sub('my','your',message)
+    if 'your' in message:
+        # Replace 'your' with 'my'
+        return re.sub('your','my',message)
+    if 'you' in message:
+        # Replace 'you' with 'me'
+        return re.sub('you','me',message)
+
+    return message
+
+
+# Add respond function
+def respond(message):
+    # Call match_rule
+    response, phrase = match_rule(rules, message)
+    if '{0}' in response:
+        # Replace the pronouns in the phrase
+        phrase = replace_pronouns(phrase)
+        # Include the phrase in the response
+        response = response.format(phrase)
+    return response
+
+
+# Create templates
+bot_template = "BOT : {0}"
+user_template = "USER : {0}"
+
+
+# Define a function that sends a message to the bot: send_message
+def send_message(message):
+    # Print user_template including the user_message
+    print(user_template.format(message))
+    # Get the bot's response to the message
+    response = respond(message)
+    # Print the bot template including the bot's response.
+    print(bot_template.format(response))
 
 if __name__ == "__main__":
-    response = match_rule(rules, "do you remember your last birthday")
-    chatbot2.send_message(response)
+    send_message("do you remember your last birthday")
+    send_message("do you think humans should be worried about AI")
+    send_message("I want a robot friend")
+    send_message("what if you could be anything you wanted")
 
