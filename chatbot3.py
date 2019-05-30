@@ -1,3 +1,7 @@
+import random
+import re
+
+
 rules = {'I want (.*)': ['What would it mean if you got {0}',
         'Why do you want {0}',
         "What's stopping you from getting {0}"],
